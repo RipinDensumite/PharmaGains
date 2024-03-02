@@ -4,8 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart</title>
+    <style>
+      table {
+        border: 1px solid black;
+        padding: 10px;
+        margin: 10px;
+      }
+      td {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+      th {
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h1 align="center">Shop</h1>
+    <h1 align="center">Shopping cart</h1>
+    <div align="center">
+      <table>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+        <!-- One cart -->
+        <tr>
+          <td>
+            <img
+              src="..\public\image\products\FitFirst protein.jpg"
+              width="100"
+              height="100"
+            />
+          </td>
+          <td>Suplement ubat kuat anggur</td>
+          <td>
+            <div>
+              <button type="button">-</button>
+              <input
+                type="number"
+                name="product-qty"
+                min="0"
+                max="10"
+                value="1"
+              />
+              <button type="button">+</button>
+            </div>
+          </td>
+          <td>$899.00</td>
+          <td>
+            <button type="button">Delete</button>
+          </td>
+        </tr>
+        <!-- End of one cart-->
+        <!-- Start of User Input -->
+        <tr>
+          <td align="left" colspan="3">Total</td>
+          <td>$899.00</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td align="center" colspan="5">
+            <a href="">
+              <button type="button">Submit</button>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" colspan="5">
+            <a href="/">
+              <button type="button">Continue Shopping</button>
+            </a>
+          </td>
+        </tr>
+        <!-- End of User Input -->
+      </table>
+    </div>
   </body>
 </html>
