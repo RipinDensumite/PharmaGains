@@ -5,7 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment</title>
   </head>
-  <body>
-    <h1 align="center">Payment</h1>
+  <body bgcolor="#494343">
+    <h1 align="center"> <FONT COLOR="white">Payment</h1></FONT COLOR="white">
+	
+	 <table bgcolor="white" align="center" border="1">
+		<tr>
+			<td align="left" rowspan = "14">
+				<img 
+				src = "../public/image/Logo/LOGO.jpg" 
+				width = 400 
+				height = 400
+			</td>
+			<td align="left">
+				First Name: 
+			</td>
+			<td align="left">
+				Last Name: 
+				
+			</td>
+      </tr>
+	
+	  <tr>
+			<td align="center">
+				<input type="text" name="firstname" required>
+			</td>
+			<td align="center">
+				<input type="text" name="lastname" required>
+			</td>
+      </tr>
+	  
+	    <tr>
+			<td align="left">
+				Phone number: 
+			</td>
+			<td align="left">
+				Email: 
+			</td>
+		</tr>	
+			<td align="center">
+				<input type="text" name="Phone number" required>
+			</td>
+			<td align="center">
+				<input type="text" name="Email" required>
+			</td>
+      </tr>
+	
+	   <tr>
+			<td align="left">
+				Address: 
+			</td>
+			<td align="left">
+				<textarea> House Number, Building, Street Name </textarea></td> 
+			</td>
+			
+      </tr>
+	  
+	  <tr>
+			<td align="left">
+				State:
+			</td>
+			<td align="left">
+				Poscode:
+	  </tr>
+	  
+	  <tr>
+			<td align="left" >
+				<select name="state"> 
+				<option value="Selangor"> Selangor </option>
+				<option value="Sarawak"> Sarawak </option>
+				<option value="Sabah"> Sabah </option>
+				<option value="Kedah"> Kedah </option>
+				<option value="N9"> N.Sembilan </option>
+				<option value="Perak"> Perak </option>
+				<option value="Pahang"> Pahang </option>
+				<option value="Kelantan"> Kelantan </option>
+				<option value="Terengganu"> Terengganu </option>
+				<option value="Perlis"> Perlis </option>
+				<option value="Johor"> Johor </option>
+				<option value="P.Penang"> P.Penang </option>
+				<option value="Melaka"> Melaka </option>
+				<option value="KL"> Kuala Lumpur </option>
+				<option value="KL"> Putrajaya </option>
+			</td>
+      
+			<td align="left" >
+				<input type="text" name="Poscode" placeholder="4300" maxlength="5" required>
+			</td>
+      </tr>
+	 
+	  <tr>
+			<tr>
+			<td align="left">
+				Payemnt method: 
+			</td>
+			<td align="center">
+			<select name="state"> 
+				<option value="Online Banking"> Online Banking </option>
+				<option value="Credit/Debit Card"> Credit/Debit Card </option>
+			</td>
+      </tr>
+	  
+	   <tr>
+			<td align="left">
+				Name on Card:
+			</td>
+			<td align="left">
+				Credit/Debit Card Number:
+			</td>
+	   </tr>
+	  
+	  <tr>
+			<td align="center">
+				<input type="text" name="Name on Card" required>
+			</td>
+			<td align="left">
+				<input maxlength="16" name="Credit/Debit Card Number" required>
+			</td>
+      </tr>
+	  
+	   <tr>
+			<td align="left">
+				Expiry Date:
+			</td>
+			<td align="left">
+				CVC:
+			</td>
+      </tr>
+	  
+	  <tr>
+			<td align="left">
+				<input name="Expiry Date" placeholder="10/25" type="text" maxlength="5" required>
+			</td>
+			<td align="left">
+				<input name="CVC" placeholder="000" maxlength="3">
+			</td>
+      </tr>
+	  
+	   <tr>
+			<td align="center" colspan = "2">
+				<button>
+					Confirm Payment
+			    </button>
+				<button>
+					<a href="../cart"> Cancel </a>
+			    </button>
+			</td>
+      </tr>
+	  
+
+
+	</table>
   </body>
 </html>
