@@ -4,15 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment</title>
+    <style>
+      td {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+      th {
+        padding: 10px;
+      }
+      button {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body bgcolor="#494343">
     <h1 align="center"><font color="white">Payment</font></h1>
 
-    <table bgcolor="white" align="center" border="1">
+    <table bgcolor="white" align="center">
       <tr>
         <td align="left" rowspan="14">
-          <img src = "../public/image/Logo/LOGO.jpg" width = "400" height =
-          "400"
+          <img src="../public/image/Logo/LOGO.jpg" width="400" height="400" />
         </td>
         <td align="left">First Name:</td>
         <td align="left">Last Name:</td>
@@ -131,10 +142,12 @@
 
       <tr>
         <td align="center" colspan="2">
-          <button>Confirm Payment</button>
-          <button>
-            <a href="../cart"> Cancel </a>
-          </button>
+          <a href="./complete.html">
+            <button>Confirm Payment</button>
+          </a>
+          <a href="../cart">
+            <button>Cancel</button>
+          </a>
         </td>
       </tr>
     </table>
