@@ -36,24 +36,24 @@
         <table>
           <tr>
             <td><label for="username">Username</label></td>
-            <td><input type="textfield" style="color: red" /></td>
+            <td><input type="textfield" style="color: red" required /></td>
           </tr>
           <tr>
             <td><label for="email">Email</label></td>
-            <td><input type="email" /></td>
+            <td><input type="email" required /></td>
           </tr>
           <tr>
             <td><label for="password">Password</label></td>
-            <td><input type="password" /></td>
+            <td><input type="password" required /></td>
           </tr>
           <tr>
             <td><label for="conPassword">Confirmed Password</label></td>
-            <td><input type="password" /></td>
+            <td><input type="password" required /></td>
           </tr>
           <tr>
             <td><label for="conPassword">Gender</label></td>
             <td>
-              <input type="radio" name="sex" value="male" />
+              <input type="radio" name="sex" value="male" required />
               <?xml version="1.0" encoding="UTF-8"?><svg
                 width="15px"
                 height="15px"
@@ -78,7 +78,7 @@
           <tr>
             <td></td>
             <td>
-              <input type="radio" name="sex" value="female" />
+              <input type="radio" name="sex" value="female" required />
               <?xml version="1.0" encoding="UTF-8"?><svg
                 width="15px"
                 height="15px"
@@ -102,7 +102,7 @@
           <tr>
             <td><label>State</label></td>
             <td>
-              <select id="state" name="state">
+              <select id="state" name="state" required>
                 <option value="selangor">Selangor</option>
                 <option value="Johor">Johor</option>
                 <option value="Kedah">Kedah</option>
@@ -131,7 +131,7 @@
           </tr>
           <tr>
             <td colspan="2" align="center">
-              <input type="checkbox" name="ageVerify" />
+              <input type="checkbox" name="ageVerify" required />
               <label for="ageVerify"
                 >Please make sure that you are 18 years old</label
               >
