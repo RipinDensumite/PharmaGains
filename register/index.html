@@ -32,26 +32,26 @@
   <body>
     <h1 align="center">Register</h1>
     <div align="center">
-      <form action="../login/">
+      <form action="register.php" method="POST">
         <table>
           <tr>
             <td><label for="username">Username</label></td>
-            <td><input type="textfield" style="color: red" required /></td>
+            <td><input type="textfield" name="username" required /></td>
           </tr>
           <tr>
             <td><label for="email">Email</label></td>
-            <td><input type="email" required /></td>
+            <td><input type="email" name="email" required /></td>
           </tr>
           <tr>
             <td><label for="password">Password</label></td>
-            <td><input type="password" required /></td>
+            <td><input type="password" name="password" required /></td>
           </tr>
           <tr>
             <td><label for="conPassword">Confirmed Password</label></td>
-            <td><input type="password" required /></td>
+            <td><input type="password" name="conPassword" required /></td>
           </tr>
           <tr>
-            <td><label for="conPassword">Gender</label></td>
+            <td><label for="gender">Gender</label></td>
             <td>
               <input type="radio" name="sex" value="male" required />
               <?xml version="1.0" encoding="UTF-8"?><svg
@@ -126,7 +126,7 @@
               <label>About you</label>
             </td>
             <td>
-              <textarea></textarea>
+              <textarea name="aboutYou"></textarea>
             </td>
           </tr>
           <tr>
