@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["username"])){
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true){
     echo $_SESSION["username"];
 }else{
     echo "There's no session available";
