@@ -2,31 +2,53 @@
 // Start the session
 session_start();
 
-if (isset($_SESSION["logged_in"])){
+$servername = "localhost";
+$dbusername = "root";
+$dbpassword = "";
+$dbname = "pharmagains";
+$error_message = "";
+
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true){
     header("Location: /pharmagains");
     exit;
-}else{
+}
+
 // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the username and password from the form
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        // Validate the username and password (replace with your actual authentication logic)
-        if ($username == "admin" && $password == "password") {
-            // If the credentials are valid, store the user's information in the session
-            $_SESSION["username"] = $username;
-            $_SESSION["logged_in"] = true;
+        // Create connection
+        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-            // Redirect the user to the dashboard or other protected page
-            header("Location: /pharmagains");
-            exit;
+        $sql = "SELECT user, pass FROM Users WHERE user = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $_POST["username"]);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row["pass"])) {
+                $_SESSION["username"] = $username;
+                $_SESSION["logged_in"] = true;
+                header("Location: /pharmagains");
+                exit();
+            } else {
+                $error_message = "Invalid username or password.";
+            }
         } else {
-            // If the credentials are invalid, display an error message
             $error_message = "Invalid username or password.";
         }
-    }
-}
+
+        $stmt->close();
+        $conn->close();
+        } 
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +89,7 @@ if (isset($_SESSION["logged_in"])){
   <body>
     <h1 align="center">Login</h1>
     <div align="center">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <table>
           <tr>
             <td>
@@ -134,6 +156,13 @@ if (isset($_SESSION["logged_in"])){
               </button>
             </td>
           </tr>
+          <?php if (isset($error_message) && !empty($error_message)) { ?>
+          <tr>
+            <td colspan="2" align="center" style="color: red;">
+              <?php echo $error_message; ?>
+            </td>
+          </tr>
+          <?php } ?>
           <tr>
             <td align="left">
               <a href="../register">register</a>
@@ -142,13 +171,6 @@ if (isset($_SESSION["logged_in"])){
               <a href="/PharmaGains/">Back homepage</a>
             </td>
           </tr>
-          <?php if (isset($error_message)) { ?>
-                <tr>
-                    <td colspan="2" align="center" style="color: red;">
-                        <?php echo $error_message; ?>
-                    </td>
-                </tr>
-                <?php } ?>
         </table>
       </form>
     </div>
