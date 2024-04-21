@@ -1,4 +1,12 @@
 <?php
+// If navigate through link without form request from html site, redirect to register page
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: /PharmaGains/register');
+    exit;
+}
+?>
+
+<?php
 $user = $_POST["username"];
 $email = $_POST["email"];
 $pass = password_hash($_POST["password"], PASSWORD_DEFAULT);
