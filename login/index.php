@@ -1,54 +1,29 @@
 <?php
+require_once '../config/db.php';
 // Start the session
 session_start();
-
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "pharmagains";
-$error_message = "";
 
 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true){
     header("Location: /pharmagains");
     exit;
 }
 
+$error_message = "";
+
 // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get the username and password from the form
-        $username = $_POST["username"];
-        $password = $_POST["password"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = $_POST["username"];
+  $password = $_POST["password"];
 
-        // Create connection
-        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+  // Create an instance of the SqlConfig class
+  $sqlConfig = new SqlConfig();
 
-        $sql = "SELECT user, pass FROM Users WHERE user = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $_POST["username"]);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row["pass"])) {
-                $_SESSION["username"] = $username;
-                $_SESSION["logged_in"] = true;
-                header("Location: /pharmagains");
-                exit();
-            } else {
-                $error_message = "Invalid username or password.";
-            }
-        } else {
-            $error_message = "Invalid username or password.";
-        }
-
-        $stmt->close();
-        $conn->close();
-        } 
+  // Call the methods of the SqlConfig class
+  $sqlConfig->DatabaseChecker();
+  $sqlConfig->TableChecker();
+  $error_message = $sqlConfig->LoginValidation($username, $password);
+  $sqlConfig->CloseCon();
+} 
 ?>
 
 <!DOCTYPE html>
