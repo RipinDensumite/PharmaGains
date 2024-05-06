@@ -22,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $sqlConfig->DatabaseChecker();
   $sqlConfig->TableChecker();
   $error_message = $sqlConfig->LoginValidation($username, $password);
-  $sqlConfig->CloseCon();
 } 
 ?>
 
