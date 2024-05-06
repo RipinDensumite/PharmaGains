@@ -1,5 +1,51 @@
 <?php
 session_start();
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "pharmagains";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch products from the database
+$sql = "SELECT * FROM Products";
+$result = $conn->query($sql);
+
+// Store products in an array
+$products = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = array(
+            'image' => $row['image'],
+            'name' => $row['name'],
+            'price' => $row['price']
+        );
+    }
+}
+
+// Function to filter products based on search query
+function filterProducts($products, $searchQuery) {
+    $filteredProducts = array();
+    foreach ($products as $product) {
+        // Check if the product name contains the search query
+        if (stripos($product['name'], $searchQuery) !== false) {
+            $filteredProducts[] = $product;
+        }
+    }
+    return $filteredProducts;
+}
+
+// Check if search form is submitted
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $searchQuery = $_GET['search'];
+    // Filter products based on the search query
+    $products = filterProducts($products, $searchQuery);
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,107 +102,13 @@ session_start();
     <font color="white">Welcome to PharmaGains Market</font>
 </marquee>
 <section>
-    <?php
-    $products = [
-        [
-            'image' => 'public\image\products\FitFirst protein.jpg',
-            'name' => 'FIT PROTEIN',
-            'price' => 130.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\Fit Gainer.jpg',
-            'name' => 'FIT GAINER',
-            'price' => 155.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\Fit Creatine.jpg',
-            'name' => 'FIT CREATINE',
-            'price' => 90.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN chocolate.jpg',
-            'name' => 'USN CHOCOLATE',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN Vanilla.jpg',
-            'name' => 'USN VANILLA',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN strawberry.jpg',
-            'name' => 'USN STRAWBERRY',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN mass chocolate.jpg',
-            'name' => 'USN MASS CHOCOLATE',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN mass vanilla.jpg',
-            'name' => 'USN MASS VANILLA',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN mass strawberry.jpg',
-            'name' => 'USN MASS STRAWBERRY',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\MMX Creatine.jpg',
-            'name' => 'MMX CREATINE',
-            'price' => 90.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\MMX mass.jpg',
-            'name' => 'MMX GAINER',
-            'price' => 240.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\MMX.jpg',
-            'name' => 'MMX PROTEIN',
-            'price' => 220.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\USN pure creatine.jpg',
-            'name' => 'USN PURE CREATINE',
-            'price' => 80.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\BCAA.jpg',
-            'name' => 'BCAA',
-            'price' => 90.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-        [
-            'image' => 'public\image\products\Steroid PharmaGain.jpg',
-            'name' => 'MEDICINE',
-            'price' => 200.00,
-            'buttons' => '<b><button>Buy Now</button></b> <b><button>Add to cart</button></b>'
-        ],
-    ];
-    ?>
     <h1 align="center">
         <font color="white"><b> Welcome to</b></font>
     </h1>
     <h2 align="center">
         <font color="white">Pharma Gains Market</font>
     </h2>
-    <!--First Col-->
+    <!-- Display filtered products -->
     <table align="center" border="4" bgcolor="#734FB7">
         <?php foreach ($products as $index => $product): ?>
             <?php if ($index % 3 === 0): ?>
@@ -178,74 +130,6 @@ session_start();
                 </tr>
             <?php endif; ?>
         <?php endforeach; ?>
-
-        <tr>
-            <td>
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; ">
-                    <img src="public\image\products\FitFirst protein.jpg" width="200" height="200"/>
-                    <font color="white"><b> FIT PROTEIN</b></font>
-                    <font color="white"><b> RM 130.00 </b></font>
-                    <b>
-                        <button>Buy Now</button>
-                    </b>
-                    <b>
-                        <button>Add to cart</button>
-                    </b>
-                </div>
-            </td>
-        </tr>
-
-
-        <!-- Base -->
-        <!-- <tr>
-            <td>
-                <img src="public\image\products\FitFirst protein.jpg" width="200" height="200" />
-            </td>
-            <td>
-                <img src="public\image\products\Fit Gainer.jpg" width="200" height="200" />
-            </td>
-            <td>
-                <img src="public\image\products\Fit Creatine.jpg" width="200" height="200" />
-            </td>
-        </tr>
-        <tr>
-            <td bgcolor="#000000" align="center">
-                <font color="white"><b> FIT PROTEIN</b></font>
-            </td>
-            <td bgcolor="#000000" align="center">
-                <font color="white"><b> FIT GAINER</b></font>
-            </td>
-            <td bgcolor="#000000" align="center">
-                <font color="white"><b> FIT CREATINE</b></font>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <font color="white"><b> RM 130.00 </b></font>
-            </td>
-            <td align="center">
-                <font color="white"><b> RM 155.00 </b></font>
-            </td>
-            <td align="center">
-                <font color="white"><b> RM 90.00 </b></font>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <b><button>Buy Now</button></b>
-                <b><button>Add to cart</button></b>
-            </td>
-            <td align="center">
-                <b><button>Buy Now</button></b>
-                <b><button>Add to cart</button></b>
-            </td>
-            <td align="center">
-                <b><button>Buy Now</button></b>
-                <b><button>Add to cart</button></b>
-            </td>
-        </tr> -->
-        <!-- end BASE -->
-
     </table>
 </section>
 </body>
