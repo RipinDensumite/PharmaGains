@@ -64,7 +64,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 
 <body bgcolor="black">
 <nav style="display: flex; flex-wrap: no-wrap; justify-content: space-between; align-items: center;">
-    <h1 style="color: white;">PharmaGains</h1>
+    <h1><a href="/pharmagains" style="text-decoration: none; color: white;">PharmaGains</a></h1>
     <div>
         <form style="display: inline;">
             <input type="text" name="search"/>
