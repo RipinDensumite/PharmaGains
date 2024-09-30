@@ -3,7 +3,6 @@ session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
-    // Redirect to the login page if not logged in
     header("Location: login.php");
     exit;
 }
@@ -56,100 +55,181 @@ $conn->close();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cart</title>
+    <title>Shopping Cart - PharmaGains</title>
     <style>
-        table {
-            border: 1px solid black;
-            padding: 10px;
-            margin: 10px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-
-        td {
-            padding-right: 15px;
-            padding-left: 15px;
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
         }
-
-        th {
-            padding: 10px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        button {
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .cart {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .cart-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 15px;
+            font-weight: bold;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        .item-details {
+            flex-grow: 1;
+        }
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .item-price {
+            color: #3498db;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-control button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .quantity-control button:hover {
+            background-color: #2980b9;
+        }
+        .quantity-control input {
+            width: 40px;
+            text-align: center;
+            margin: 0 10px;
+        }
+        .remove-item {
+            color: #e74c3c;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .remove-item:hover {
+            color: #c0392b;
+        }
+        .cart-summary {
+            background-color: #ecf0f1;
+            padding: 15px;
+            text-align: right;
+        }
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .cart-item img {
+                margin-bottom: 10px;
+            }
+            .quantity-control {
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1 align="center">Shopping cart</h1>
-    <div align="center">
-        <table>
-            <tr>
-                <th colspan="2">Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div class="cart">
+            <div class="cart-header">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="flex: 2;">Product</span>
+                    <span style="flex: 1;">Quantity</span>
+                    <span style="flex: 1;">Price</span>
+                    <span style="flex: 1;">Action</span>
+                </div>
+            </div>
             <?php foreach ($cartItems as $item): ?>
-                <tr>
-                    <td>
-                        <img src="<?php echo "../" . $item['image']; ?>" width="100" height="100" />
-                    </td>
-                    <td><?php echo $item['name']; ?></td>
-                    <td>
-                    <form method="post" action="updateQuantity.php">
-                    <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
-                        <div>
-                            <button type="submit" name="action" value="decrement">-</button>
-                                <input type="number" name="quantity" min="0" max="10" value="<?php echo $item['quantity']; ?>">
-                            <button type="submit" name="action" value="increment">+</button>
-                        </div>
+                <div class="cart-item">
+                    <img src="<?php echo "../" . $item['image']; ?>" alt="<?php echo $item['name']; ?>" />
+                    <div class="item-details">
+                        <div class="item-name"><?php echo $item['name']; ?></div>
+                        <div class="item-price">$<?php echo $item['price']; ?></div>
+                    </div>
+                    <form method="post" action="updateQuantity.php" class="quantity-control">
+                        <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
+                        <button type="submit" name="action" value="decrement">-</button>
+                        <input type="number" name="quantity" min="0" max="10" value="<?php echo $item['quantity']; ?>">
+                        <button type="submit" name="action" value="increment">+</button>
                     </form>
-                    </td>
-                    <td>$<?php echo $item['price']; ?></td>
-                    <td>
-                    <a href="removeFromCart.php?cart_item_id=<?php echo $item['cart_item_id']; ?>" onclick="return confirm('Are you sure?'); return false;">Delete</a>
-                </td>
-                </tr>
-                <tr>
-                    <td colspan="5">
-                        <hr />
-                    </td>
-                </tr>
+                    <div>$<?php echo $item['price'] * $item['quantity']; ?></div>
+                    <a href="removeFromCart.php?cart_item_id=<?php echo $item['cart_item_id']; ?>" class="remove-item" onclick="return confirm('Are you sure you want to remove this item?');">Remove</a>
+                </div>
             <?php endforeach; ?>
-
-            <!-- Start of User Input -->
-            <tr>
-                <td align="left" colspan="3">Total</td>
-                <td>
-                    $<?php
+            <div class="cart-summary">
+                <div class="cart-total">
+                    Total: $<?php
                     $total = 0;
                     foreach ($cartItems as $item) {
                         $total += $item['price'] * $item['quantity'];
                     }
                     echo $total;
                     ?>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td align="center" colspan="5">
-                    <a href="../payment">
-                        <?php if($result->num_rows > 0){
-                        echo "<button style='width: 100%; padding: 10px; margin: 3px' type='button'>Submit</button>";
-                        }
-                        ?>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" colspan="5">
-                    <a href="/">
-                        <button style="width: 100%; padding: 10px; margin: 3px" type="button">Continue Shopping</button>
-                    </a>
-                </td>
-            </tr>
-            <!-- End of User Input -->
-        </table>
+                </div>
+                <?php if($result->num_rows > 0): ?>
+                    <a href="../payment" class="btn">Proceed to Checkout</a>
+                <?php endif; ?>
+                <a href="/" class="btn btn-secondary">Continue Shopping</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

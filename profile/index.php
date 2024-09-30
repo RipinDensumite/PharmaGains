@@ -38,9 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sqlConfig->DatabaseChecker();
     $sqlConfig->TableChecker();
     $msg = $sqlConfig->UpdateProfile($user_id, $username, $email, $sex, $state, $aboutYou);
-    // Update the profile information in the database
-    // You need to implement this part
-    // $sqlConfig->UpdateProfile($user_id, $username, $email, $sex, $state, $aboutYou);
 }
 ?>
 
@@ -51,103 +48,119 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile</title>
     <style>
-        table {
-            border: 1px solid black;
-            padding: 10px;
-            margin: 10px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
-        input {
-            padding: 5px;
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            color: #333;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
         }
         button {
-            padding: 5px;
-            background-color: green;
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
             color: white;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: darkgreen;
+            background-color: #2980b9;
         }
-        a {
+        
+        .links {
+            text-align: right;
+            margin-top: 15px;
+        }
+        .links a {
             text-decoration: none;
-            color: #4a5568;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <h1 align="center">Edit Profile</h1>
-    <div align="center">
+    <h1>Edit Profile</h1>
+    <div class="container">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-            <table>
-                <tr>
-                    <td><label for="username">Username</label></td>
-                    <td><input type="textfield" name="username" value="<?php echo $username; ?>" required /></td>
-                </tr>
-                <tr>
-                    <td><label for="email">Email</label></td>
-                    <td><input type="email" name="email" value="<?php echo $email; ?>" required /></td>
-                </tr>
-                <!-- Password fields (if you want to allow password update) -->
-                <!--
-                <tr>
-                    <td><label for="password">Password</label></td>
-                    <td><input type="password" name="password" required /></td>
-                </tr>
-                <tr>
-                    <td><label for="conPass">Confirmed Password</label></td>
-                    <td><input type="password" name="conPass" required /></td>
-                </tr>
-                -->
-                <tr>
-                    <td><label for="gender">Gender</label></td>
-                    <td>
-                        <input type="radio" name="sex" value="male" <?php if($sex === 'male') echo 'checked'; ?> required /> Male
-                        <br />
-                        <input type="radio" name="sex" value="female" <?php if($sex === 'female') echo 'checked'; ?> required /> Female
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>State</label></td>
-                    <td>
-                        <select id="state" name="state" required>
-                            <!-- You can dynamically select the state based on the user's profile -->
-                            <?php
-                            $states = ['Selangor', 'Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan', 'Pahang', 'Penang', 'Perak', 'Perlis', 'Sarawak', 'Terengganu', 'Kuala Lumpur', 'Labuan', 'Putrajaya'];
-                            foreach ($states as $state_option) {
-                                if ($state === $state_option) {
-                                    echo "<option value=\"$state_option\" selected>$state_option</option>";
-                                } else {
-                                    echo "<option value=\"$state_option\">$state_option</option>";
-                                }
-                            }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>About you</label></td>
-                    <td>
-                        <textarea name="aboutYou"><?php echo $aboutYou; ?></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button style="width: 100%; padding: 10px; margin: 3px" type="submit">Update Profile</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                    </td>
-                    <td align="right">
-                        <a href="..">Back to Homepage</a>
-                    </td>
-                </tr>
-            </table>
+            <label for="username">Username</label>
+            <input type="text" name="username" value="<?php echo $username; ?>" required />
+
+            <label for="email">Email</label>
+            <input type="email" name="email" value="<?php echo $email; ?>" required />
+
+            <label for="gender">Gender</label>
+            <input type="radio" name="sex" value="male" <?php if($sex === 'male') echo 'checked'; ?> required /> Male
+            <input type="radio" name="sex" value="female" <?php if($sex === 'female') echo 'checked'; ?> required /> Female
+
+            <label for="state">State</label>
+            <select id="state" name="state" required>
+                <?php
+                $states = ['Selangor', 'Johor', 'Kedah', 'Kelantan', 'Melaka', 'Negeri Sembilan', 'Pahang', 'Penang', 'Perak', 'Perlis', 'Sarawak', 'Terengganu', 'Kuala Lumpur', 'Labuan', 'Putrajaya'];
+                foreach ($states as $state_option) {
+                    echo "<option value=\"$state_option\"" . ($state === $state_option ? ' selected' : '') . ">$state_option</option>";
+                }
+                ?>
+            </select>
+
+            <label for="aboutYou">About you</label>
+            <textarea name="aboutYou"><?php echo $aboutYou; ?></textarea>
+
+            <button type="submit">Update Profile</button>
+
+            <div class="links">
+                <a href="..">Back to Homepage</a>
+            </div>
         </form>
         <?php 
         if(isset($msg)){
-            echo $msg;
+            echo "<div class='error-message'>$msg</div>";
         }
         ?>
     </div>

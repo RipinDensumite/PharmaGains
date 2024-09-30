@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST["email"];
   $pass = $_POST["password"];
   $conPass = $_POST["conPass"];
-  // $pass = password_hash($_POST["password"], PASSWORD_DEFAULT); Hash password
   $sex = $_POST["sex"];
   $state = $_POST["state"];
   $aboutYou = $_POST["aboutYou"];
@@ -23,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }else{
     // Create an instance of the SqlConfig class
     $sqlConfig = new SqlConfig();
-
     // Call the methods of the SqlConfig class
     $sqlConfig->DatabaseChecker();
     $sqlConfig->TableChecker();
@@ -34,110 +32,131 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
     <style>
-      table {
-        border: 1px solid black;
-        padding: 10px;
-        margin: 10px;
-      }
-      input {
-        padding: 5px;
-      }
-      button {
-        padding: 5px;
-        background-color: green;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: darkgreen;
-      }
-      a {
-        text-decoration: none;
-        color: #4a5568;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        form {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s;
+        }
+        .links a:hover {
+            color: #2980b9;
+        }
     </style>
-  </head>
-  <body>
-    <h1 align="center">Register</h1>
-    <div align="center">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <table>
-          <tr>
-            <td><label for="username">Username</label></td>
-            <td><input type="textfield" name="username" required /></td>
-          </tr>
-          <tr>
-            <td><label for="email">Email</label></td>
-            <td><input type="email" name="email" required /></td>
-          </tr>
-          <tr>
-            <td><label for="password">Password</label></td>
-            <td><input type="password" name="password" required /></td>
-          </tr>
-          <tr>
-            <td><label for="conPass">Confirmed Password</label></td>
-            <td><input type="password" name="conPass" required /></td>
-          </tr>
-          <tr>
-          <tr>
-            <td><label for="gender">Gender</label></td>
-            <td>
-              <input type="radio" name="sex" value="male" required />
-              <?xml version="1.0" encoding="UTF-8"?><svg
-                width="15px"
-                height="15px"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#000000"
-              >
-                <path
-                  d="M14.2323 9.74707C13.1474 8.66733 11.6516 8 10 8C6.68629 8 4 10.6863 4 14C4 17.3137 6.68629 20 10 20C13.3137 20 16 17.3137 16 14C16 12.3379 15.3242 10.8337 14.2323 9.74707ZM14.2323 9.74707L20 4M20 4H16M20 4V8"
-                  stroke="#000000"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-              Male
-              <br />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <input type="radio" name="sex" value="female" required />
-              <?xml version="1.0" encoding="UTF-8"?><svg
-                width="15px"
-                height="15px"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                color="#000000"
-              >
-                <path
-                  d="M12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15ZM12 15V19M12 21V19M12 19H10M12 19H14"
-                  stroke="#000000"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-              Female
-            </td>
-          </tr>
-          <tr>
-            <td><label>State</label></td>
-            <td>
-              <select id="state" name="state" required>
+</head>
+<body>
+    <h1>Register</h1>
+    <div>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" required />
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required />
+
+            <label for="password">Password</label>
+            <input type="password" name="password" required />
+
+            <label for="conPass">Confirmed Password</label>
+            <input type="password" name="conPass" required />
+
+            <label for="gender">Gender</label>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly;">
+              <label><input type="radio" name="sex" value="male" required /> Male</label>
+              <label><input type="radio" name="sex" value="female" required /> Female</label>
+            </div>
+
+            <label for="state">State</label>
+            <select id="state" name="state" required>
                 <option value="selangor">Selangor</option>
                 <option value="Johor">Johor</option>
                 <option value="Kedah">Kedah</option>
@@ -153,50 +172,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Kuala Lumpur">Kuala Lumpur</option>
                 <option value="Labuan">Labuan</option>
                 <option value="Putrajaya">Putrajaya</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>About you</label>
-            </td>
-            <td>
-              <textarea name="aboutYou"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" align="center">
-              <input type="checkbox" name="ageVerify" required />
-              <label for="ageVerify"
-                >Please make sure that you are 18 years old</label
-              >
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" align="center">
-              <button
-                style="width: 100%; padding: 10px; margin: 3px"
-                type="submit"
-              >
-                Register
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td align="left">
+            </select>
+
+            <label>About you</label>
+            <textarea name="aboutYou" rows="3"></textarea>
+
+            <label>
+                <input type="checkbox" name="ageVerify" required />
+                Please make sure that you are 18 years old
+            </label>
+
+            <button type="submit">Register</button>
+
+            <div class="links">
               <a href="../login">Login</a>
-            </td>
-            <td align="right">
-              <a href="..">Back homepage</a>
-            </td>
-          </tr>
-        </table>
-      </form>
-      <?php 
-        if(isset($regOutput)){
-          echo $regOutput;
-        }
-      ?>
+              <a href="..">Back to homepage</a>
+            </div>
+        </form>
+
+        <?php if (isset($regOutput)) { ?>
+            <div class="error-message"><?php echo $regOutput; ?></div>
+        <?php } ?>
     </div>
-  </body>
+</body>
 </html>
