@@ -1,6 +1,12 @@
 <?php
 // Include the SqlConfig class file
 require_once '../config/db.php';
+session_start();
+
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true){
+    header("Location: /");
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $user = $_POST["username"];
@@ -181,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <a href="../login">Login</a>
             </td>
             <td align="right">
-              <a href="/PharmaGains/">Back homepage</a>
+              <a href="..">Back homepage</a>
             </td>
           </tr>
         </table>

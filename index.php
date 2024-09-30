@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$servername = "localhost";
+$servername = "167.71.207.105:3306";
 $username = "root";
 $password = "";
 $dbname = "pharmagains";
@@ -82,7 +82,7 @@ if (isset($_GET['product_id']) && !empty($_GET['product_id'])) {
 
 <body bgcolor="black">
 <nav style="display: flex; flex-wrap: no-wrap; justify-content: space-between; align-items: center;">
-    <h1><a href="/pharmagains" style="text-decoration: none; color: white;">PharmaGains</a></h1>
+    <h1><a href="/" style="text-decoration: none; color: white;">PharmaGains</a></h1>
     <div>
         <form style="display: inline;">
             <input type="text" name="search"/>
@@ -110,9 +110,16 @@ if (isset($_GET['product_id']) && !empty($_GET['product_id'])) {
             echo "</a>";
         }
         ?>
-        <a href="register">
+        <?php
+        if (!(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] == true)){
+            echo "<a href='register'>";
+            echo    "<button>Register</button>";
+            echo "</a>";
+        }
+        ?>
+       <!--  <a href="register">
             <button>Register</button>
-        </a>
+        </a> -->
         <a href="cart">
             <button>Cart</button>
         </a>

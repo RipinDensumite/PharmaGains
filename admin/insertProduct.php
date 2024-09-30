@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "167.71.207.105";
 $username = "root";
 $password = "";
 $dbname = "pharmagains";
@@ -26,7 +26,6 @@ $products = [
     ['image' => 'public\image\products\MMX.jpg', 'name' => 'MMX PROTEIN', 'price' => 220.00],
     ['image' => 'public\image\products\Creatin.jpg', 'name' => 'USN PURE CREATINE', 'price' => 80.00],
     ['image' => 'public\image\products\BCAA.jpg', 'name' => 'BCAA', 'price' => 90.00],
-    ['image' => 'public\image\products\Steroid PharmaGain.jpg', 'name' => 'MEDICINE', 'price' => 200.00],
 ];
 
 // Insert products into the table

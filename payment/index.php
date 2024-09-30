@@ -11,7 +11,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
 $userId = $_SESSION["user_id"];
 
 // Connect to the database
-$servername = "localhost";
+$servername = "167.71.207.105";
 $username = "root";
 $password = "";
 $dbname = "pharmagains";

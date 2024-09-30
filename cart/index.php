@@ -11,7 +11,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
 $userId = $_SESSION["user_id"];
 
 // Connect to the database
-$servername = "localhost";
+$servername = "167.71.207.105";
 $username = "root";
 $password = "";
 $dbname = "pharmagains";
@@ -143,7 +143,7 @@ $conn->close();
             </tr>
             <tr>
                 <td align="center" colspan="5">
-                    <a href="/PharmaGains/">
+                    <a href="/">
                         <button style="width: 100%; padding: 10px; margin: 3px" type="button">Continue Shopping</button>
                     </a>
                 </td>

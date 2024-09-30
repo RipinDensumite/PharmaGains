@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <td align="left">
                     </td>
                     <td align="right">
-                        <a href="/PharmaGains/">Back to Homepage</a>
+                        <a href="..">Back to Homepage</a>
                     </td>
                 </tr>
             </table>

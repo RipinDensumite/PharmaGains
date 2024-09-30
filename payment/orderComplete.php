@@ -11,7 +11,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
 $orderId = $_GET["order_id"];
 
 // Connect to the database
-$servername = "localhost";
+$servername = "167.71.207.105";
 $username = "root";
 $password = "";
 $dbname = "pharmagains";
@@ -50,6 +50,6 @@ $conn->close();
     <p>Total Price: $<?php echo $order['total_price']; ?></p>
     <p>Order Date: <?php echo $order['created_at']; ?></p>
     <!-- Add any additional information or actions here -->
-    <a href="/pharmagains">Back to homepage</a>
+    <a href="/">Back to homepage</a>
 </body>
 </html>

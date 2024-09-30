@@ -7,7 +7,7 @@ class SqlConfig{
     public $conn;
 
     function __construct(){
-        $this->servername = "localhost";
+        $this->servername = "167.71.207.105";
         $this->username = "root";
         $this->password = "";
         $this->dbname = "pharmagains";
@@ -222,7 +222,7 @@ class SqlConfig{
                 $_SESSION["user_id"] = $user_id;
                 $_SESSION["cart_id"] = $cart_id;
 
-                header("Location: /pharmagains");
+                header("Location: /");
                 exit();
             } else {
                 return $error_message = "Invalid username or password.";
