@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <table>
           <tr>
             <td>
-              <?xml version="1.0" encoding="UTF-8"?><svg
+              <svg
                 width="24px"
                 height="24px"
                 stroke-width="1.5"
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </tr>
           <tr>
             <td>
-              <?xml version="1.0" encoding="UTF-8"?><svg
+              <svg
                 width="24px"
                 height="24px"
                 stroke-width="1.5"
