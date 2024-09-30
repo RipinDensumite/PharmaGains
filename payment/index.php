@@ -228,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <tr>
             <td align="center" colspan="2">
               <button type="submit">Confirm Payment</button>
-              <a href="/pharmagains/cart">
+              <a href="/cart">
                 <button type="button">Cancel</button>
               </a>
             </td>
