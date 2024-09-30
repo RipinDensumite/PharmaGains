@@ -83,6 +83,7 @@ $conn->close();
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            margin-bottom: 20px;
         }
         .cart-header {
             background-color: #3498db;
@@ -90,30 +91,22 @@ $conn->close();
             padding: 15px;
             font-weight: bold;
         }
-        .cart-item {
-            display: flex;
-            align-items: center;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
             padding: 15px;
+            text-align: left;
             border-bottom: 1px solid #eee;
         }
-        .cart-item:last-child {
-            border-bottom: none;
+        th {
+            background-color: #ecf0f1;
         }
         .cart-item img {
             width: 80px;
             height: 80px;
             object-fit: cover;
-            margin-right: 15px;
-        }
-        .item-details {
-            flex-grow: 1;
-        }
-        .item-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .item-price {
-            color: #3498db;
         }
         .quantity-control {
             display: flex;
@@ -171,18 +164,6 @@ $conn->close();
         .btn-secondary:hover {
             background-color: #7f8c8d;
         }
-        @media (max-width: 768px) {
-            .cart-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .cart-item img {
-                margin-bottom: 10px;
-            }
-            .quantity-control {
-                margin-top: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -190,33 +171,46 @@ $conn->close();
         <h1>Shopping Cart</h1>
         <div class="cart">
             <div class="cart-header">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="flex: 2;">Product</span>
-                    <span style="flex: 1;">Quantity</span>
-                    <span style="flex: 1;">Price</span>
-                    <span style="flex: 1;">Action</span>
-                </div>
+                <div>Products in your cart</div>
             </div>
-            <?php foreach ($cartItems as $item): ?>
-                <div class="cart-item">
-                    <img src="<?php echo "../" . $item['image']; ?>" alt="<?php echo $item['name']; ?>" />
-                    <div class="item-details">
-                        <div class="item-name"><?php echo $item['name']; ?></div>
-                        <div class="item-price">$<?php echo $item['price']; ?></div>
-                    </div>
-                    <form method="post" action="updateQuantity.php" class="quantity-control">
-                        <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
-                        <button type="submit" name="action" value="decrement">-</button>
-                        <input type="number" name="quantity" min="0" max="10" value="<?php echo $item['quantity']; ?>">
-                        <button type="submit" name="action" value="increment">+</button>
-                    </form>
-                    <div>$<?php echo $item['price'] * $item['quantity']; ?></div>
-                    <a href="removeFromCart.php?cart_item_id=<?php echo $item['cart_item_id']; ?>" class="remove-item" onclick="return confirm('Are you sure you want to remove this item?');">Remove</a>
-                </div>
-            <?php endforeach; ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cartItems as $item): ?>
+                        <tr class="cart-item">
+                            <td style="display: flex; align-items: center;">
+                                <img style="margin-right: 10px;" src="<?php echo "../" . $item['image']; ?>" alt="<?php echo $item['name']; ?>" />
+                                <div style="display: flex; flex-direction: column; ">
+                                    <span><?php echo $item['name']; ?></span>
+                                    <span><?php echo "RM " . $item['price']; ?></span>
+                                </div>
+                            </td>
+                            <td>
+                                <form method="post" action="updateQuantity.php" class="quantity-control">
+                                    <input type="hidden" name="cart_item_id" value="<?php echo $item['cart_item_id']; ?>">
+                                    <button type="submit" name="action" value="decrement">-</button>
+                                    <input type="number" name="quantity" min="0" max="10" value="<?php echo $item['quantity']; ?>">
+                                    <button type="submit" name="action" value="increment">+</button>
+                                </form>
+                            </td>
+                            <td>RM <?php echo $item['price'] * $item['quantity']; ?></td>
+                            <td>
+                                <a href="removeFromCart.php?cart_item_id=<?php echo $item['cart_item_id']; ?>" class="remove-item" onclick="return confirm('Are you sure you want to remove this item?');">Remove</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
             <div class="cart-summary">
                 <div class="cart-total">
-                    Total: $<?php
+                    Total: RM <?php
                     $total = 0;
                     foreach ($cartItems as $item) {
                         $total += $item['price'] * $item['quantity'];
