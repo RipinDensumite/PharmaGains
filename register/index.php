@@ -26,6 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sqlConfig->DatabaseChecker();
     $sqlConfig->TableChecker();
     $regOutput = $sqlConfig->InsertNewUser($user, $pass, $sex, $state, $email, $aboutYou);
+
+    $error_message = $sqlConfig->LoginValidation($user, $pass);
   }
 }
 ?>
