@@ -183,16 +183,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </label>
 
             <button type="submit">Register</button>
+            
+            <?php if (isset($regOutput)) { ?>
+              <div class="error-message"><?php echo $regOutput; ?></div>
+            <?php } ?>
 
             <div class="links">
               <a href="../login">Login</a>
               <a href="..">Back to homepage</a>
             </div>
         </form>
-
-        <?php if (isset($regOutput)) { ?>
-            <div class="error-message"><?php echo $regOutput; ?></div>
-        <?php } ?>
     </div>
 </body>
 </html>
