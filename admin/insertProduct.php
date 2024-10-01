@@ -1,7 +1,7 @@
 <?php
 $servername = "167.71.207.105";
 $username = "root";
-$password = "";
+$password = "pharma12345";
 $dbname = "pharmagains";
 
 // Create connection

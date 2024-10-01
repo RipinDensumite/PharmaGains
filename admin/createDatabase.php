@@ -1,9 +1,9 @@
 <?php
 
 class Database {
-    private $host = 'localhost';
+    private $host = '167.71.207.105';
     private $username = 'root';
-    private $password = 'rootpassword';
+    private $password = 'pharma12345';
     private $dbname = 'pharmagains';
     public $conn;
 
