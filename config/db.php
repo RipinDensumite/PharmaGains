@@ -9,7 +9,7 @@ class SqlConfig{
     function __construct(){
         $this->servername = "167.71.207.105";
         $this->username = "root";
-        $this->password = "";
+        $this->password = "pharma12345";
         $this->dbname = "pharmagains";
     }
 

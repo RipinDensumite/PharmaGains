@@ -13,7 +13,7 @@ $cartItemId = $_GET["cart_item_id"];
 // Connect to the database
 $servername = "167.71.207.105";
 $username = "root";
-$password = "";
+$password = "pharma12345";
 $dbname = "pharmagains";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

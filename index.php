@@ -3,7 +3,7 @@ session_start();
 
 $servername = "167.71.207.105:3306";
 $username = "root";
-$password = "";
+$password = "pharma12345";
 $dbname = "pharmagains";
 $prodNum = 0;
 
